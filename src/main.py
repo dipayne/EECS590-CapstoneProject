@@ -1,6 +1,7 @@
 import os
 import json
 import numpy as np
+from src.utils.viz import policy_to_grid, print_policy_grid, save_policy_map_png, save_value_heatmap_png
 
 from src.envs.logistics_grid_mdp import LogisticsGridMDP
 from src.dp.policy_iteration import policy_iteration
@@ -49,6 +50,33 @@ def main():
     save_policy(result.policy, "outputs/policies/best_policy.json")
     np.save("outputs/values/V.npy", result.V)
     np.save("outputs/qvalues/Q.npy", result.Q)
+    
+        # ---- Visualization ----
+    # blocked + terminal sets (for display)
+    blocked_states = getattr(mdp, "_blocked_states", set())
+    terminal_states = getattr(mdp, "_terminal_states", set())
+
+    grid = policy_to_grid(
+        policy=result.policy,
+        rows=mdp.rows,
+        cols=mdp.cols,
+        blocked_states=blocked_states,
+        terminal_states=terminal_states
+    )
+
+    print("\nPolicy Map (terminal view):")
+    print_policy_grid(
+        grid,
+        depot_rc=mdp.spec.depot,
+        goal_rc=mdp.spec.customer
+    )
+
+    save_policy_map_png(grid, mdp.spec.depot, mdp.spec.customer, "outputs/plots/policy_map.png")
+    save_value_heatmap_png(result.V, mdp.rows, mdp.cols, blocked_states, "outputs/plots/value_heatmap.png")
+
+    print("\nSaved plots:")
+    print(" - outputs/plots/policy_map.png")
+    print(" - outputs/plots/value_heatmap.png")
 
     print("Saved outputs to outputs/.")
 
