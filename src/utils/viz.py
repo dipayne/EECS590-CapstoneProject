@@ -33,8 +33,12 @@ def policy_to_grid(policy: np.ndarray, rows: int, cols: int,
 
 
 def print_policy_grid(grid: List[List[str]], depot_rc: Tuple[int, int], goal_rc: Tuple[int, int]) -> None:
+    import sys
     dr, dc = depot_rc
     gr, gc = goal_rc
+    # Reconfigure stdout to UTF-8 so Unicode arrows print correctly on Windows
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
     for r, row in enumerate(grid):
         out = []
         for c, ch in enumerate(row):
