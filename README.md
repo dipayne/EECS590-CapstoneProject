@@ -48,7 +48,8 @@ EECS590-CapstoneProject/
 │   ├── mdp/
 │   │   └── model_learning.py     # MDP estimation, belief save/load/update
 │   ├── utils/
-│   │   └── viz.py                # Policy map and value heatmap utilities
+│   │   ├── viz.py                # Static policy map and value heatmap utilities
+│   │   └── render.py             # raster_mode=human live rendering utilities
 │   ├── main.py                   # Entry point: runs policy iteration and saves outputs
 │   └── train_eval.py             # Random policy baseline / environment smoke test
 ├── requirements.txt
@@ -155,13 +156,20 @@ Raw transition counts and reward sums are serialized to disk via `counts_path`. 
 
 ## Visualization
 
-Implemented in `src/utils/viz.py`.
+### Static plots — `src/utils/viz.py`
 
 | Utility | Description |
 |--------|-------------|
 | `print_policy_grid()` | Prints an ASCII arrow map of the learned policy to the terminal |
 | `save_policy_map_png()` | Saves a PNG grid visualization of the policy (arrows, depot, goal, blocked cells) |
 | `save_value_heatmap_png()` | Saves a color heatmap of the state value function V |
+
+### Live rendering — `src/utils/render.py` (`raster_mode=human`)
+
+| Utility | Description |
+|--------|-------------|
+| `render_logistics_grid()` | Step-by-step matplotlib animation of the agent navigating the Logistics Grid |
+| `run_human_render()` | Runs any Gymnasium environment with `render_mode='human'` for live pygame display |
 
 ---
 
@@ -178,6 +186,7 @@ pip install -r requirements.txt
 **Dependencies** (`requirements.txt`):
 ```
 gymnasium
+highway-env
 numpy
 matplotlib
 pygame
@@ -214,6 +223,18 @@ Evaluates a random agent on a Gymnasium environment for a specified number of ep
 python -m src.train_eval --env highway-v0 --episodes 5 --max_steps 500
 ```
 
+### Watch the Agent Live (raster_mode=human)
+```bash
+# Watch trained DPAgent navigate the Logistics Grid step by step
+python -m src.utils.render --env logistics --load --episodes 3
+
+# Watch a random policy on the Logistics Grid
+python -m src.utils.render --env logistics --episodes 3
+
+# Watch a random policy on the highway-v0 foundation environment
+python -m src.utils.render --env highway-v0 --episodes 2
+```
+
 ### Jupyter Notebooks
 ```bash
 jupyter notebook notebooks/
@@ -237,13 +258,12 @@ After running `src/main.py`, the following files are saved to `outputs/`:
 
 ## Collaborations
 
-<!-- List any collaborators or study partners here. Example: -->
 - Solo project — no collaborators for Version 1.
 
 ---
 
 ## Citations
 
-<!-- Add any papers, textbooks, or resources you referenced. Examples below: -->
-- Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press.
-- Gymnasium documentation: https://gymnasium.farama.org/
+- Sutton, R. S., & Barto, A. G. (2018). *Reinforcement Learning: An Introduction* (2nd ed.). MIT Press. https://incompleteideas.net/book/the-book-2nd.html
+- Towers, M., et al. (2024). Gymnasium. https://gymnasium.farama.org/
+- Leurent, E. (2018). *highway-env: An environment for autonomous driving decision-making*. https://github.com/Farama-Foundation/HighwayEnv

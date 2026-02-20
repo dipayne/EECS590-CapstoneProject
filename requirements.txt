@@ -1,4 +1,5 @@
 gymnasium
+highway-env
 numpy
 matplotlib
 pygame
