@@ -23,6 +23,8 @@ A research-oriented reinforcement learning framework built on an explicit Markov
 
 ```
 EECS590-CapstoneProject/
+├── notebooks/
+│   └── 01_policy_iteration.ipynb # Interactive walkthrough: MDP setup, training, visualization
 ├── outputs/
 │   ├── plots/
 │   │   ├── policy_map.png        # Visual grid of the learned policy
@@ -34,7 +36,9 @@ EECS590-CapstoneProject/
 │   └── qvalues/
 │       └── Q.npy                 # Q-value table (state x action)
 ├── src/
-│   ├── agents/                   # Agent implementations (in progress)
+│   ├── agents/
+│   │   ├── base_agent.py         # Abstract base class for all agents
+│   │   └── dp_agent.py           # Policy Iteration agent with CLI interface
 │   ├── dp/
 │   │   └── policy_iteration.py   # Policy evaluation, improvement, and iteration
 │   ├── envs/
@@ -42,11 +46,11 @@ EECS590-CapstoneProject/
 │   │   ├── make_env.py           # Environment factory
 │   │   └── test_foundation_env.py
 │   ├── mdp/
-│   │   └── model_learning.py     # MDP estimation from environment sampling
+│   │   └── model_learning.py     # MDP estimation, belief save/load/update
 │   ├── utils/
 │   │   └── viz.py                # Policy map and value heatmap utilities
 │   ├── main.py                   # Entry point: runs policy iteration and saves outputs
-│   └── train_eval.py             # Training/evaluation pipeline (random policy baseline)
+│   └── train_eval.py             # Random policy baseline / environment smoke test
 ├── requirements.txt
 └── README.md
 ```
@@ -138,7 +142,14 @@ The `estimate_mdp()` function bootstraps the agent's world model by sampling ran
 - **Transition probabilities** `P[s][a][s']` via frequency counts
 - **Expected rewards** `R[s][a][s']` via sample averaging
 
-This supports future model-based RL (world-model learning) where the agent must maintain and update prior beliefs about the environment dynamics.
+### Persistent Belief Updates
+Raw transition counts and reward sums are serialized to disk via `counts_path`. On subsequent runs the prior counts are loaded and new samples are merged in — implementing incremental Bayesian-style belief updates over the MDP dynamics without discarding past experience.
+
+| Function | Description |
+|----------|-------------|
+| `estimate_mdp(..., counts_path=...)` | Sample environment and update stored beliefs |
+| `save_model(P, R, path)` | Save a finalized (P, R) model to disk |
+| `load_model(path)` | Reload a saved (P, R) model |
 
 ---
 
@@ -184,11 +195,28 @@ Runs policy iteration on the Logistics Grid MDP, prints the policy map, and save
 python -m src.main
 ```
 
+### Train and Evaluate the DPAgent (with hyperparameters)
+```bash
+# Train, evaluate, and save outputs
+python -m src.agents.dp_agent --mode both --gamma 0.95 --theta 1e-8 --max_iter 1000 --episodes 10 --save
+
+# Evaluate only using a previously saved policy
+python -m src.agents.dp_agent --mode eval --load --episodes 20
+
+# Train only
+python -m src.agents.dp_agent --mode train --gamma 0.99 --save
+```
+
 ### Run Random Policy Baseline
 Evaluates a random agent on a Gymnasium environment for a specified number of episodes.
 
 ```bash
 python -m src.train_eval --env highway-v0 --episodes 5 --max_steps 500
+```
+
+### Jupyter Notebooks
+```bash
+jupyter notebook notebooks/
 ```
 
 ---
