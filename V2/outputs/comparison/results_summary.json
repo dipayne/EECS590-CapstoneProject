@@ -77,7 +77,11 @@
     "training_time_s": 1244.0156304836273
   },
   "DQN (D+D+PER)": {
-    "error": "training failed"
+    "mean_return": 20.33113262998655,
+    "std_return": 10.582406070721662,
+    "n_episodes": 723,
+    "final_avg50": 27.9647591049434,
+    "training_time_s": 1643.6709084510803
   },
   "PPO": {
     "mean_return": 22.76457029833578,
