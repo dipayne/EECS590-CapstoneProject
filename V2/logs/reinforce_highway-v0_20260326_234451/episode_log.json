@@ -1,0 +1,127 @@
+[
+  {
+    "episode": 0,
+    "return": 10.299154830720038,
+    "length": 13
+  },
+  {
+    "episode": 1,
+    "return": 5.498402313025899,
+    "length": 7
+  },
+  {
+    "episode": 2,
+    "return": 3.7378196203736085,
+    "length": 5
+  },
+  {
+    "episode": 3,
+    "return": 9.265594664748205,
+    "length": 12
+  },
+  {
+    "episode": 4,
+    "return": 14.406282046840994,
+    "length": 22
+  },
+  {
+    "episode": 5,
+    "return": 6.024198644704306,
+    "length": 8
+  },
+  {
+    "episode": 6,
+    "return": 9.261748756685597,
+    "length": 14
+  },
+  {
+    "episode": 7,
+    "return": 6.341896780077963,
+    "length": 9
+  },
+  {
+    "episode": 8,
+    "return": 2.896940890207251,
+    "length": 4
+  },
+  {
+    "episode": 9,
+    "return": 5.870743159101969,
+    "length": 8
+  },
+  {
+    "episode": 10,
+    "return": 1.7900228137452894,
+    "length": 3
+  },
+  {
+    "episode": 11,
+    "return": 5.137706948968129,
+    "length": 8
+  },
+  {
+    "episode": 12,
+    "return": 14.743611111284599,
+    "length": 22
+  },
+  {
+    "episode": 13,
+    "return": 4.074637516893372,
+    "length": 6
+  },
+  {
+    "episode": 14,
+    "return": 6.885343378267342,
+    "length": 11
+  },
+  {
+    "episode": 15,
+    "return": 9.084693703439344,
+    "length": 11
+  },
+  {
+    "episode": 16,
+    "return": 26.48912978135163,
+    "length": 40
+  },
+  {
+    "episode": 17,
+    "return": 5.4944424489900525,
+    "length": 8
+  },
+  {
+    "episode": 18,
+    "return": 10.249036901001583,
+    "length": 14
+  },
+  {
+    "episode": 19,
+    "return": 7.04403623114956,
+    "length": 10
+  },
+  {
+    "episode": 20,
+    "return": 9.926088487178703,
+    "length": 12
+  },
+  {
+    "episode": 21,
+    "return": 1.0209926798276256,
+    "length": 2
+  },
+  {
+    "episode": 22,
+    "return": 26.88633033561974,
+    "length": 40
+  },
+  {
+    "episode": 23,
+    "return": 11.494486661161808,
+    "length": 17
+  },
+  {
+    "episode": 24,
+    "return": 23.270859840716636,
+    "length": 40
+  }
+]

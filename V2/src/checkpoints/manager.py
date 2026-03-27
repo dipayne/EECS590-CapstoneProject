@@ -138,16 +138,24 @@ class CheckpointManager:
 
     def _save_agent(self, agent, tag: str) -> None:
         """Dispatch to agent.save() for each network component."""
-        # Agents expose .save(path) but some (PPO) have actor/critic separately
+        import torch
+        # Agents expose .save(path) but some (PPO/REINFORCE) have actor/critic separately
         if hasattr(agent, "actor") and hasattr(agent, "critic"):
-            # PPO-style: actor + critic
-            import torch
+            # PPO / REINFORCE style: actor + critic networks
             torch.save(agent.actor.state_dict(),
                        self.run_dir / f"actor_{tag}.pt")
             torch.save(agent.critic.state_dict(),
                        self.run_dir / f"critic_{tag}.pt")
-            torch.save(agent.optimizer.state_dict(),
-                       self.run_dir / f"optimizer_{tag}.pt")
+            # Optimizer: PPO uses .optimizer, REINFORCE uses .opt_actor
+            if hasattr(agent, "optimizer"):
+                torch.save(agent.optimizer.state_dict(),
+                           self.run_dir / f"optimizer_{tag}.pt")
+            elif hasattr(agent, "opt_actor"):
+                torch.save(agent.opt_actor.state_dict(),
+                           self.run_dir / f"opt_actor_{tag}.pt")
+                if hasattr(agent, "opt_critic") and agent.opt_critic is not None:
+                    torch.save(agent.opt_critic.state_dict(),
+                               self.run_dir / f"opt_critic_{tag}.pt")
         elif hasattr(agent, "online_net") and hasattr(agent, "target_net"):
             # DQN-style: online + target nets
             import torch

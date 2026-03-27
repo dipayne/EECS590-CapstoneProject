@@ -1,0 +1,127 @@
+[
+  {
+    "episode": 0,
+    "return": 8.992215748746776,
+    "length": 14
+  },
+  {
+    "episode": 1,
+    "return": 9.081261896158138,
+    "length": 11
+  },
+  {
+    "episode": 2,
+    "return": 11.348707699264144,
+    "length": 15
+  },
+  {
+    "episode": 3,
+    "return": 21.14557170918355,
+    "length": 28
+  },
+  {
+    "episode": 4,
+    "return": 6.273276770237691,
+    "length": 8
+  },
+  {
+    "episode": 5,
+    "return": 19.769256718054695,
+    "length": 29
+  },
+  {
+    "episode": 6,
+    "return": 1.7232227530293496,
+    "length": 3
+  },
+  {
+    "episode": 7,
+    "return": 15.655390148250774,
+    "length": 25
+  },
+  {
+    "episode": 8,
+    "return": 7.255824752925707,
+    "length": 11
+  },
+  {
+    "episode": 9,
+    "return": 20.309141742059992,
+    "length": 31
+  },
+  {
+    "episode": 10,
+    "return": 24.93606658927324,
+    "length": 40
+  },
+  {
+    "episode": 11,
+    "return": 26.06361552157233,
+    "length": 40
+  },
+  {
+    "episode": 12,
+    "return": 9.277760656001957,
+    "length": 14
+  },
+  {
+    "episode": 13,
+    "return": 2.9118253313442453,
+    "length": 4
+  },
+  {
+    "episode": 14,
+    "return": 21.742570389082946,
+    "length": 34
+  },
+  {
+    "episode": 15,
+    "return": 23.18935105957433,
+    "length": 40
+  },
+  {
+    "episode": 16,
+    "return": 15.399146007124308,
+    "length": 25
+  },
+  {
+    "episode": 17,
+    "return": 21.493298931175147,
+    "length": 35
+  },
+  {
+    "episode": 18,
+    "return": 5.7542702713441045,
+    "length": 7
+  },
+  {
+    "episode": 19,
+    "return": 13.209015330580463,
+    "length": 18
+  },
+  {
+    "episode": 20,
+    "return": 24.38236483492562,
+    "length": 40
+  },
+  {
+    "episode": 21,
+    "return": 3.4036620154908706,
+    "length": 6
+  },
+  {
+    "episode": 22,
+    "return": 5.2758545716894245,
+    "length": 7
+  },
+  {
+    "episode": 23,
+    "return": 18.394237408972934,
+    "length": 28
+  },
+  {
+    "episode": 24,
+    "return": 4.037097298944401,
+    "length": 7
+  }
+]

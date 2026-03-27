@@ -1,0 +1,10 @@
+{
+  "run_name": "monte_carlo_highway-v0",
+  "nS": 135,
+  "nA": 5,
+  "gamma": 0.99,
+  "epsilon": 1.0,
+  "epsilon_decay": 0.97,
+  "epsilon_min": 0.1,
+  "n_episodes": 25
+}

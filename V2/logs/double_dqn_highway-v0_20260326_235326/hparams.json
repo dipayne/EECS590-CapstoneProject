@@ -1,0 +1,15 @@
+{
+  "run_name": "double_dqn_highway-v0",
+  "variant": "double",
+  "use_per": false,
+  "gamma": 0.99,
+  "lr": 0.0001,
+  "batch_size": 32,
+  "buffer_capacity": 800,
+  "target_update_freq": 80,
+  "epsilon_start": 1.0,
+  "epsilon_end": 0.1,
+  "epsilon_decay_steps": 1000,
+  "train_start": 80,
+  "total_steps": 2000
+}

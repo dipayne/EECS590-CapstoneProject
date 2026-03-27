@@ -1,0 +1,12 @@
+{
+  "run_name": "linear_fa_highway-v0",
+  "nS": 135,
+  "nA": 5,
+  "gamma": 0.99,
+  "epsilon": 1.0,
+  "epsilon_decay": 0.97,
+  "epsilon_min": 0.1,
+  "alpha": 0.02,
+  "method": "sarsa",
+  "n_episodes": 25
+}

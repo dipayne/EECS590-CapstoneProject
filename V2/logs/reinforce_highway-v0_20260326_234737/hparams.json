@@ -1,0 +1,9 @@
+{
+  "run_name": "reinforce_highway-v0",
+  "obs_dim": 25,
+  "n_actions": 5,
+  "gamma": 0.99,
+  "lr_actor": 0.0005,
+  "use_baseline": true,
+  "n_episodes": 25
+}

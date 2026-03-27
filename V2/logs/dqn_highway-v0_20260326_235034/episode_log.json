@@ -1,0 +1,672 @@
+[
+  {
+    "episode": 0,
+    "return": 33.86742976805754,
+    "length": 40
+  },
+  {
+    "episode": 1,
+    "return": 3.310548235383181,
+    "length": 5
+  },
+  {
+    "episode": 2,
+    "return": 18.26511281098519,
+    "length": 25
+  },
+  {
+    "episode": 3,
+    "return": 16.83445574029386,
+    "length": 22
+  },
+  {
+    "episode": 4,
+    "return": 2.9714182904689523,
+    "length": 4
+  },
+  {
+    "episode": 5,
+    "return": 20.91157160120952,
+    "length": 27
+  },
+  {
+    "episode": 6,
+    "return": 26.87971130838421,
+    "length": 36
+  },
+  {
+    "episode": 7,
+    "return": 16.282908383335695,
+    "length": 23
+  },
+  {
+    "episode": 8,
+    "return": 11.303530084363329,
+    "length": 15
+  },
+  {
+    "episode": 9,
+    "return": 2.666103790938737,
+    "length": 4
+  },
+  {
+    "episode": 10,
+    "return": 4.039208768101006,
+    "length": 5
+  },
+  {
+    "episode": 11,
+    "return": 3.3327704576054034,
+    "length": 5
+  },
+  {
+    "episode": 12,
+    "return": 22.162700144700164,
+    "length": 26
+  },
+  {
+    "episode": 13,
+    "return": 21.120878913979947,
+    "length": 25
+  },
+  {
+    "episode": 14,
+    "return": 6.975028885235728,
+    "length": 10
+  },
+  {
+    "episode": 15,
+    "return": 3.5813804840622354,
+    "length": 5
+  },
+  {
+    "episode": 16,
+    "return": 14.437007944876429,
+    "length": 18
+  },
+  {
+    "episode": 17,
+    "return": 13.85693345016188,
+    "length": 19
+  },
+  {
+    "episode": 18,
+    "return": 11.684087695147955,
+    "length": 16
+  },
+  {
+    "episode": 19,
+    "return": 2.597941896824553,
+    "length": 4
+  },
+  {
+    "episode": 20,
+    "return": 5.62492516168122,
+    "length": 9
+  },
+  {
+    "episode": 21,
+    "return": 3.8281715766271867,
+    "length": 5
+  },
+  {
+    "episode": 22,
+    "return": 18.143115321684874,
+    "length": 22
+  },
+  {
+    "episode": 23,
+    "return": 5.592591200575132,
+    "length": 7
+  },
+  {
+    "episode": 24,
+    "return": 5.7493076493965765,
+    "length": 8
+  },
+  {
+    "episode": 25,
+    "return": 12.534526046493772,
+    "length": 17
+  },
+  {
+    "episode": 26,
+    "return": 23.100671555991855,
+    "length": 31
+  },
+  {
+    "episode": 27,
+    "return": 4.947814525105905,
+    "length": 6
+  },
+  {
+    "episode": 28,
+    "return": 7.150789477826272,
+    "length": 10
+  },
+  {
+    "episode": 29,
+    "return": 3.4589535974921066,
+    "length": 5
+  },
+  {
+    "episode": 30,
+    "return": 5.623983367691544,
+    "length": 7
+  },
+  {
+    "episode": 31,
+    "return": 10.949055965506883,
+    "length": 13
+  },
+  {
+    "episode": 32,
+    "return": 1.7762903241358379,
+    "length": 3
+  },
+  {
+    "episode": 33,
+    "return": 6.060693602697126,
+    "length": 8
+  },
+  {
+    "episode": 34,
+    "return": 24.714630487900102,
+    "length": 32
+  },
+  {
+    "episode": 35,
+    "return": 20.101111418377506,
+    "length": 25
+  },
+  {
+    "episode": 36,
+    "return": 5.035478544963877,
+    "length": 6
+  },
+  {
+    "episode": 37,
+    "return": 3.1999999999999997,
+    "length": 5
+  },
+  {
+    "episode": 38,
+    "return": 18.087504951420115,
+    "length": 24
+  },
+  {
+    "episode": 39,
+    "return": 9.467468397505085,
+    "length": 12
+  },
+  {
+    "episode": 40,
+    "return": 11.500601244899928,
+    "length": 15
+  },
+  {
+    "episode": 41,
+    "return": 4.810290133239866,
+    "length": 6
+  },
+  {
+    "episode": 42,
+    "return": 3.7058754347676737,
+    "length": 5
+  },
+  {
+    "episode": 43,
+    "return": 3.362738463948913,
+    "length": 5
+  },
+  {
+    "episode": 44,
+    "return": 6.148146883841333,
+    "length": 8
+  },
+  {
+    "episode": 45,
+    "return": 23.28028899131106,
+    "length": 30
+  },
+  {
+    "episode": 46,
+    "return": 4.729808605250608,
+    "length": 6
+  },
+  {
+    "episode": 47,
+    "return": 13.76989324336696,
+    "length": 19
+  },
+  {
+    "episode": 48,
+    "return": 21.23792210228998,
+    "length": 29
+  },
+  {
+    "episode": 49,
+    "return": 24.09814689849113,
+    "length": 29
+  },
+  {
+    "episode": 50,
+    "return": 11.93330808977512,
+    "length": 17
+  },
+  {
+    "episode": 51,
+    "return": 9.255550875714587,
+    "length": 12
+  },
+  {
+    "episode": 52,
+    "return": 19.079355261403144,
+    "length": 25
+  },
+  {
+    "episode": 53,
+    "return": 5.2406961229204505,
+    "length": 7
+  },
+  {
+    "episode": 54,
+    "return": 1.884432307996474,
+    "length": 3
+  },
+  {
+    "episode": 55,
+    "return": 28.76138942043702,
+    "length": 35
+  },
+  {
+    "episode": 56,
+    "return": 19.88535298647453,
+    "length": 27
+  },
+  {
+    "episode": 57,
+    "return": 15.127070564583903,
+    "length": 21
+  },
+  {
+    "episode": 58,
+    "return": 8.437116948205755,
+    "length": 12
+  },
+  {
+    "episode": 59,
+    "return": 2.6390554909470914,
+    "length": 4
+  },
+  {
+    "episode": 60,
+    "return": 8.656019559384887,
+    "length": 10
+  },
+  {
+    "episode": 61,
+    "return": 21.91189952486124,
+    "length": 26
+  },
+  {
+    "episode": 62,
+    "return": 9.038054463055511,
+    "length": 11
+  },
+  {
+    "episode": 63,
+    "return": 14.410035757967325,
+    "length": 18
+  },
+  {
+    "episode": 64,
+    "return": 10.849684009267555,
+    "length": 16
+  },
+  {
+    "episode": 65,
+    "return": 4.072447112455561,
+    "length": 5
+  },
+  {
+    "episode": 66,
+    "return": 7.337876583542591,
+    "length": 10
+  },
+  {
+    "episode": 67,
+    "return": 15.59448151956689,
+    "length": 20
+  },
+  {
+    "episode": 68,
+    "return": 3.4437678616672054,
+    "length": 5
+  },
+  {
+    "episode": 69,
+    "return": 27.09729644696198,
+    "length": 36
+  },
+  {
+    "episode": 70,
+    "return": 30.346723912122062,
+    "length": 40
+  },
+  {
+    "episode": 71,
+    "return": 3.202752668684008,
+    "length": 4
+  },
+  {
+    "episode": 72,
+    "return": 3.395533785401291,
+    "length": 5
+  },
+  {
+    "episode": 73,
+    "return": 3.9566893054575987,
+    "length": 6
+  },
+  {
+    "episode": 74,
+    "return": 15.88294524593366,
+    "length": 21
+  },
+  {
+    "episode": 75,
+    "return": 8.238480286983227,
+    "length": 12
+  },
+  {
+    "episode": 76,
+    "return": 29.58147392238632,
+    "length": 40
+  },
+  {
+    "episode": 77,
+    "return": 4.771285139707673,
+    "length": 6
+  },
+  {
+    "episode": 78,
+    "return": 22.191365265913703,
+    "length": 30
+  },
+  {
+    "episode": 79,
+    "return": 1.9072174059466263,
+    "length": 3
+  },
+  {
+    "episode": 80,
+    "return": 7.266552133072606,
+    "length": 10
+  },
+  {
+    "episode": 81,
+    "return": 2.4849078050089917,
+    "length": 4
+  },
+  {
+    "episode": 82,
+    "return": 5.592814794230938,
+    "length": 8
+  },
+  {
+    "episode": 83,
+    "return": 14.89667391824133,
+    "length": 18
+  },
+  {
+    "episode": 84,
+    "return": 4.039208768101006,
+    "length": 5
+  },
+  {
+    "episode": 85,
+    "return": 3.5088426793487097,
+    "length": 5
+  },
+  {
+    "episode": 86,
+    "return": 5.577185671301551,
+    "length": 7
+  },
+  {
+    "episode": 87,
+    "return": 19.086350082234993,
+    "length": 25
+  },
+  {
+    "episode": 88,
+    "return": 4.04261595889764,
+    "length": 6
+  },
+  {
+    "episode": 89,
+    "return": 5.486614553095104,
+    "length": 7
+  },
+  {
+    "episode": 90,
+    "return": 31.200297096816875,
+    "length": 40
+  },
+  {
+    "episode": 91,
+    "return": 21.289385702421505,
+    "length": 27
+  },
+  {
+    "episode": 92,
+    "return": 4.74717709797044,
+    "length": 6
+  },
+  {
+    "episode": 93,
+    "return": 1.4470330219739704,
+    "length": 3
+  },
+  {
+    "episode": 94,
+    "return": 7.833262898491856,
+    "length": 10
+  },
+  {
+    "episode": 95,
+    "return": 4.947828882168034,
+    "length": 6
+  },
+  {
+    "episode": 96,
+    "return": 16.526168815366685,
+    "length": 22
+  },
+  {
+    "episode": 97,
+    "return": 6.53020412706736,
+    "length": 8
+  },
+  {
+    "episode": 98,
+    "return": 35.53237030709083,
+    "length": 40
+  },
+  {
+    "episode": 99,
+    "return": 0.9327704576054037,
+    "length": 2
+  },
+  {
+    "episode": 100,
+    "return": 8.39097077766472,
+    "length": 11
+  },
+  {
+    "episode": 101,
+    "return": 5.793522365936165,
+    "length": 7
+  },
+  {
+    "episode": 102,
+    "return": 7.3945576991767705,
+    "length": 9
+  },
+  {
+    "episode": 103,
+    "return": 16.860696185432033,
+    "length": 20
+  },
+  {
+    "episode": 104,
+    "return": 29.083495403565205,
+    "length": 40
+  },
+  {
+    "episode": 105,
+    "return": 3.462210085774252,
+    "length": 5
+  },
+  {
+    "episode": 106,
+    "return": 4.328847954439441,
+    "length": 6
+  },
+  {
+    "episode": 107,
+    "return": 19.034410701281388,
+    "length": 23
+  },
+  {
+    "episode": 108,
+    "return": 1.9720897949513816,
+    "length": 3
+  },
+  {
+    "episode": 109,
+    "return": 18.100575408720974,
+    "length": 20
+  },
+  {
+    "episode": 110,
+    "return": 5.947645028457222,
+    "length": 7
+  },
+  {
+    "episode": 111,
+    "return": 4.351338168376441,
+    "length": 6
+  },
+  {
+    "episode": 112,
+    "return": 7.768018502061665,
+    "length": 9
+  },
+  {
+    "episode": 113,
+    "return": 2.5756232941843775,
+    "length": 4
+  },
+  {
+    "episode": 114,
+    "return": 3.9268601264719054,
+    "length": 5
+  },
+  {
+    "episode": 115,
+    "return": 3.1995508313213796,
+    "length": 5
+  },
+  {
+    "episode": 116,
+    "return": 27.137831714563994,
+    "length": 34
+  },
+  {
+    "episode": 117,
+    "return": 6.126121260522807,
+    "length": 8
+  },
+  {
+    "episode": 118,
+    "return": 31.146806868781752,
+    "length": 40
+  },
+  {
+    "episode": 119,
+    "return": 4.681391686316111,
+    "length": 6
+  },
+  {
+    "episode": 120,
+    "return": 18.69932462560634,
+    "length": 21
+  },
+  {
+    "episode": 121,
+    "return": 11.368581350381163,
+    "length": 14
+  },
+  {
+    "episode": 122,
+    "return": 10.914273780877735,
+    "length": 15
+  },
+  {
+    "episode": 123,
+    "return": 16.212941540443605,
+    "length": 22
+  },
+  {
+    "episode": 124,
+    "return": 5.836714194409053,
+    "length": 7
+  },
+  {
+    "episode": 125,
+    "return": 10.168808195553876,
+    "length": 12
+  },
+  {
+    "episode": 126,
+    "return": 7.016290390521085,
+    "length": 10
+  },
+  {
+    "episode": 127,
+    "return": 7.357946728439147,
+    "length": 9
+  },
+  {
+    "episode": 128,
+    "return": 8.957926160483831,
+    "length": 12
+  },
+  {
+    "episode": 129,
+    "return": 5.10459071036523,
+    "length": 7
+  },
+  {
+    "episode": 130,
+    "return": 5.657457994705498,
+    "length": 7
+  },
+  {
+    "episode": 131,
+    "return": 30.172644117426948,
+    "length": 40
+  },
+  {
+    "episode": 132,
+    "return": 30.68260990890831,
+    "length": 40
+  },
+  {
+    "episode": 133,
+    "return": 17.97237754142438,
+    "length": 21
+  }
+]
