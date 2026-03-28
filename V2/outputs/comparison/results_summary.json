@@ -96,5 +96,45 @@
     "n_episodes": 50,
     "final_avg50": 8.124891155561574,
     "training_time_s": 0.0
+  },
+  "DQN (baseline)": {
+    "label": "DQN (baseline)",
+    "final_avg50": 24.651956839334165,
+    "mean_return": 13.846433579551205,
+    "std_return": 10.393577776053728,
+    "n_episodes": 1184,
+    "training_time_s": 2741.47052526474
+  },
+  "DQN + Double": {
+    "label": "DQN + Double",
+    "final_avg50": 25.1437692693847,
+    "mean_return": 12.681836624987689,
+    "std_return": 9.948269174968727,
+    "n_episodes": 1264,
+    "training_time_s": 2719.229598760605
+  },
+  "DQN + Dueling": {
+    "label": "DQN + Dueling",
+    "final_avg50": 26.713297805560565,
+    "mean_return": 13.337084808634074,
+    "std_return": 10.30367484340892,
+    "n_episodes": 1239,
+    "training_time_s": 2850.371778488159
+  },
+  "DQN + Double + Dueling": {
+    "label": "DQN + Double + Dueling",
+    "final_avg50": 19.20489610823107,
+    "mean_return": 13.6393182974933,
+    "std_return": 10.268982886291926,
+    "n_episodes": 1248,
+    "training_time_s": 2890.285524368286
+  },
+  "DQN + D+D+PER (full)": {
+    "label": "DQN + D+D+PER (full)",
+    "final_avg50": 27.601941357014024,
+    "mean_return": 19.64758805379388,
+    "std_return": 10.896294059976608,
+    "n_episodes": 748,
+    "training_time_s": 2911.1993205547333
   }
 }
