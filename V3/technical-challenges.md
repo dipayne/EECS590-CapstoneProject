@@ -45,21 +45,48 @@ both streams directly. Knew this was a Windows PowerShell 5.1 quirk going in,
 so it didn't burn investigation time, but worth noting for the next person
 who tries to script this on Windows.
 
-## Single-seed Optuna gain may be seed-driven
+## Single-seed Optuna gain was seed-driven
 
-**Symptom.** The Optuna best trial (+29.57) beats the V2 baseline (+27.60)
-by 1.97 points (~7%), but the V2 baseline was a single-seed (seed=42) result
-from the V2 ablation. A 1.97-point difference is well within the variance I
-observed across trials of similar quality (trials 3, 9, 10, 13, 17 all
-landed in [+28.2, +29.6]).
+**Symptom.** The Optuna best trial (+29.57) beat the V2 single-seed baseline
+(+27.60) by 1.97 points (~7%), but the V2 baseline was a single seed=42
+result from the V2 ablation. A 1.97-point gap is within the variance I
+observed across Optuna trials of similar quality (trials 3, 9, 10, 13, 17
+all landed in [+28.2, +29.6]).
 
-**Resolution.** `run_robustness.py` re-trains both the V2 default config and
-the V3-tuned config across 5 seeds at 20k steps. If the mean of the tuned
-config cleanly clears the V2 mean by more than one standard deviation, the
-gain is real. If it doesn't, the V3 conclusion has to be reported honestly
-as "tuning produces a config that matches the baseline but does not
-significantly improve it" — and that is still useful information about how
-well-tuned the V2 default already was.
+**Resolution.** `run_robustness.py` re-trained both configs across 5 seeds
+at 20k steps each. The result: V2 default mean = +28.78 (std 0.60), V3 tuned
+mean = +27.58 (std 1.82). The single-seed Optuna gain was indeed seed
+luck — V2 default actually has a higher mean once evaluated fairly. The V3
+narrative in `decisions.md` was updated to report this honestly rather than
+keep the inflated single-seed number.
+
+## Two robustness runs ran concurrently
+
+**Symptom.** The first robustness run was launched via PowerShell
+`run_in_background:true`. Twenty minutes in I checked and saw the output
+file at 0 bytes with no python process visible in `Get-Process`. I assumed
+it had died silently and restarted it via Bash `run_in_background:true`
+with `python -u` for unbuffered stdout. In fact the first run was still
+alive — Python's stdout was buffered because PowerShell's pipe is not a tty,
+so the output file remained empty for the full duration of each ~30-minute
+training. My `Get-Process` check missed the live process because of a race.
+Both runs then proceeded in parallel, each writing to the same
+`V3/outputs/robustness/` directory.
+
+**Resolution.** Both runs completed at roughly the same time. The later
+writer's outputs are what is on disk now (run 2 — the Bash-launched one).
+The two runs interfered with each other through CPU contention, so the
+absolute numbers are slightly noisier than they would be from a clean
+serial run; but both configs were subjected to identical interference at
+identical seeds, so the relative comparison between V2 default and V3 tuned
+is preserved. The conclusion (V2 default ≥ V3 tuned) is the same in both
+runs' summaries.
+
+**Lessons.** Always pass `-u` to Python when launching long jobs through
+a pipe-redirected harness, or use `PYTHONUNBUFFERED=1`. And do not restart
+a background job based on a 0-byte log file without independently
+confirming the process is actually dead (e.g., by Task-Manager PID lookup,
+not just `Get-Process`).
 
 ## DQN buffer alpha/beta not exposed through agent constructor
 

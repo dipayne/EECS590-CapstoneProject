@@ -85,9 +85,51 @@ value distant outcomes heavily.
 **Robustness re-run (5 seeds × 2 configs × 20k steps).** Code in
 `V3/run_robustness.py`, results in `V3/outputs/robustness/`. See
 `learning_curves.png` and `final_avg50_box.png`. The numerical summary is in
-`summary.json`. **Reading guide:** if the V3-tuned mean cleanly clears the V2
-mean plus one standard deviation, the gain is real; if the boxes overlap
-heavily, the +1.97 in the single Optuna run was largely seed-driven.
+`summary.json`.
+
+| Config | mean ± std | [min, max] |
+|---|---|---|
+| V2 default DQN(D+D+PER) | **+28.78 ± 0.60** | [+27.69, +29.32] |
+| V3 Optuna-tuned best | **+27.58 ± 1.82** | [+24.88, +30.17] |
+
+**This is the part of V3 I most want a reader to look at carefully.** Across
+5 seeds, the V2 default config produced a *higher* mean return than the
+Optuna-tuned config, with one third the variance. The single-seed
++29.57 from trial 9 was not a robust improvement — it was a high draw from
+the V3-tuned distribution that happens to overlap most of the V2-default
+distribution. The published V2 single-seed result of +27.60 was, conversely,
+a low draw from its own distribution; the true V2-default mean is ~+28.78.
+Once both configs are evaluated on a common footing, the apparent
+hyperparameter-tuning gain disappears.
+
+The honest read is:
+
+1. **The V2 default DQN(D+D+PER) hyperparameters were already well chosen for
+   `highway-v0`.** Textbook defaults (γ=0.99, lr=1e-4, batch_size=64,
+   target_update_freq=300) work well on this task and the Bayesian search
+   could not robustly improve on them.
+
+2. **Optuna's best config has substantially higher variance** (std 1.82 vs
+   0.60). The tuned config — with γ pushed up to 0.998, lr raised 5.6×, and
+   target_update_freq raised 2.5× — is more aggressive and more
+   seed-sensitive than the default. On the lucky end it hits +30.17, but on
+   the unlucky end it falls to +24.88. The default is more boring and more
+   reliable.
+
+3. **The Optuna objective was a single-seed final-avg-50** — exactly the
+   metric that suffers from seed luck. A more honest objective would have
+   been median over k≥3 seeds per trial, but at ~36 min per training that
+   pushes a 20-trial study from 8 hours to 24+. I chose to use the cheap
+   objective and validate the winner post-hoc with the robustness re-run.
+   The cost of that choice — finding a non-robust winner — is exactly what
+   the re-run revealed.
+
+**This is what HPO honestly looks like in practice on a well-tuned baseline.**
+It is not a story of "Bayesian tuning improved my agent by 7%". It is a
+story of: I applied the right diagnostic tool, ran it correctly, and the
+tool said "your existing config is already as good as I can find". That
+finding is worth publishing in a small ablation study, even though it is the
+less flattering conclusion.
 
 ---
 

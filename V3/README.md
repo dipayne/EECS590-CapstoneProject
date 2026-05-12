@@ -28,12 +28,20 @@ topics were considered but deliberately not implemented.
 
 | Config | Final avg-50 return |
 |---|---|
-| V2 default DQN(D+D+PER), single seed | +27.60 |
-| V3 Optuna-tuned best (single seed) | +29.57 (+1.97, ~7%) |
-| V3 robustness mean (5 seeds) | see `outputs/robustness/summary.json` |
+| V2 default DQN(D+D+PER), 5-seed mean ± std | **+28.78 ± 0.60** |
+| V3 Optuna-tuned best, 5-seed mean ± std | **+27.58 ± 1.82** |
+| (Single-seed Optuna trial 9, used to pick the winner) | +29.57 |
+| (Single-seed V2 ablation result, seed=42) | +27.60 |
+
+**Bayesian HPO did not produce a robust improvement over V2's defaults.** The
+single-seed +29.57 from Optuna's trial 9 was a high draw from a wider
+distribution; once both configs are evaluated over 5 matched seeds, V2
+default actually has a higher mean and one-third the variance. This is the
+honest finding and is discussed in detail in [decisions.md](decisions.md).
 
 See `decisions.md` for the full analysis (parameter importance, winning
-hyperparameters, and why each skipped algorithm was skipped).
+hyperparameters, robustness story, and why each skipped algorithm was
+skipped).
 
 ## Reproducing V3
 
