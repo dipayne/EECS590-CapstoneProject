@@ -1,0 +1,14 @@
+{
+  "best_value": 29.570537622548862,
+  "best_params": {
+    "lr": 0.0005650284253236263,
+    "gamma": 0.9978686781625088,
+    "batch_size": 64,
+    "target_update_freq": 741,
+    "eps_decay_pct": 0.5990031094619743,
+    "train_start": 280
+  },
+  "best_trial_number": 9,
+  "n_trials": 20,
+  "n_complete": 20
+}

@@ -1,0 +1,58 @@
+# V3: Final Version
+
+Due: 2026-05-13.
+
+V3 builds on V2 (the 13-algorithm benchmark on `highway-v0`) by applying
+Bayesian hyperparameter optimization to the strongest V2 agent
+(DQN + Double + Dueling + PER) and articulating which other post-V2 class
+topics were considered but deliberately not implemented.
+
+## What is here
+
+- [decisions.md](decisions.md) — what V3 implemented (Bayesian HPO via
+  Optuna/TPE) and what was considered and skipped (multi-agent,
+  distributional, constrained, model-based, imitation, hierarchical, offline)
+  with my justification for each call.
+- [technical-challenges.md](technical-challenges.md) — friction encountered
+  during V3 work and how it was handled.
+- [citations.md](citations.md) — collaborators, tools, and references.
+- `run_optuna.py` — Bayesian HPO study (TPE sampler, 6-dim search space).
+- `run_robustness.py` — 5-seed re-training of V2 default vs V3-tuned config
+  to confirm the gain is not seed luck.
+- `outputs/optuna/` — study database, best params, optimization history,
+  parameter importance, parallel coordinate plot, trial table.
+- `outputs/robustness/` — per-seed return curves, summary stats, multi-seed
+  learning curves, final-return boxplot.
+
+## Headline result
+
+| Config | Final avg-50 return |
+|---|---|
+| V2 default DQN(D+D+PER), single seed | +27.60 |
+| V3 Optuna-tuned best (single seed) | +29.57 (+1.97, ~7%) |
+| V3 robustness mean (5 seeds) | see `outputs/robustness/summary.json` |
+
+See `decisions.md` for the full analysis (parameter importance, winning
+hyperparameters, and why each skipped algorithm was skipped).
+
+## Reproducing V3
+
+```bash
+# From repo root
+python -m pip install -r V2/requirements.txt
+python -m pip install -r V3/requirements.txt
+
+# Bayesian HPO (long — ~8h on CPU)
+python V3/run_optuna.py --trials 20 --steps 20000
+
+# Multi-seed robustness re-run (~4h on CPU)
+python V3/run_robustness.py
+```
+
+The Optuna study is SQLite-backed, so re-running `run_optuna.py` resumes
+from where it stopped rather than restarting.
+
+## V1 and V2
+
+- [../README.md](../README.md) — project overview and V1 (logistics grid DP).
+- [../V2/README.md](../V2/README.md) — V2 RL benchmark, ablation, saliency.
