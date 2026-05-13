@@ -133,118 +133,119 @@ less flattering conclusion.
 
 ---
 
-## Considered and skipped
+## What I could have done instead, and why I did not
 
-For each, I state what it is, what implementing it would have cost, and why
-that cost was not worth it for *this* project. Implementing all of them
-would have been the wrong answer.
+Most of the post-V2 class topics — multi-agent value factorization,
+hierarchical RL, hindsight relabelling for sparse rewards, unsupervised
+skill discovery on reward-free environments — target problem structures
+my single-agent, dense-reward, vector-observation env does not have, so
+they are not credible alternatives for *this* project and are not
+discussed here. The two algorithm families that *are* genuine
+alternatives for improving a single-agent DQN on `highway-v0` are
+covered below.
 
-### Multi-agent / coordination methods (MAPPO, QMIX, IPPO, MADDPG)
+### Hyperband (alternative HPO method)
 
-**What it is.** Algorithms where multiple agents learn jointly, either with a
-centralized critic and decentralized actors (MAPPO, MADDPG) or with a
-mixing network that decomposes a joint value function (QMIX). Designed for
-StarCraft, Hanabi, traffic networks of learning vehicles, robot swarms.
+**What it is.** A non-Bayesian HPO method built on successive halving:
+start many short trials, kill the worst on a small budget, give the
+survivors more budget, repeat. Useful when training time scales strongly
+with budget and bad configurations can be detected early.
 
-**Why I skipped it.** `highway-v0` has exactly one learning agent. The
-surrounding vehicles are scripted IDM/MOBIL drivers — they do not learn,
-they do not coordinate, they do not have policies in the RL sense.
-Force-fitting MAPPO here would require either (a) replacing the scripted
-traffic with N learning DQN agents, which changes the environment into
-something the rest of my repo no longer addresses, or (b) wrapping the
-single agent in a multi-agent shim, which contributes nothing. The V3 spec
-explicitly names this as the wrong fit for a main-protagonist environment,
-and I agree.
+**Why it was a credible alternative.** Hyperband and TPE solve the same
+problem from opposite directions — TPE picks better configurations by
+modelling success/failure densities; Hyperband picks better
+configurations by aggressively killing the bad ones before they finish.
+Either is defensible for tuning DQN hyperparameters on `highway-v0`, and
+Hyperband can outperform TPE on a fixed compute budget when bad
+configurations are easy to spot early.
 
-### Distributional RL (C51, QR-DQN, IQN)
+**Why TPE was the better choice.** Hyperband's whole advantage rests on
+being able to detect bad configurations early. On `highway-v0`, the
+first several thousand environment steps of any DQN training are
+dominated by ε-greedy exploration, so early returns are nearly random
+and look the same across good and bad configurations — a config whose
+lr is too high produces identical "still mostly exploring" returns in
+steps 0–3,000 as a config that will end up winning. Killing trials on
+that signal would have thrown out winners. TPE does not depend on
+early-stopping; it just sees the final return of completed trials and
+learns from those, which fits this regime cleanly. If I later move to a
+multi-seed-per-trial objective (3–5× more expensive per trial) and a
+longer per-trial budget, the calculus shifts and Hyperband — or
+equivalently Optuna's `HyperbandPruner` layered on the TPE study —
+becomes worth its complexity.
 
-**What it is.** Instead of estimating the *expected* discounted return as a
-scalar Q(s,a), distributional methods learn the *full distribution* of
-returns — either as a categorical distribution over fixed atoms (C51) or as
-a set of quantiles (QR-DQN). Useful when downstream decisions depend on
-risk, not just mean reward.
+### Model-based RL (PlaNet, Dreamer, TD-MPC, World Model)
 
-**Why I skipped it.** This is a serious candidate — risk-aware driving
-(avoiding rare but catastrophic collisions) is exactly the kind of problem
-distributional RL helps with. But: replacing my Q-head with a 51-atom
-categorical head and rewriting the Bellman update to use the distributional
-projection is a non-trivial change to the V2 DQN code, and once done it
-nullifies my V2 ablation (which used scalar Q-values throughout). For V3, I
-chose to deepen what I already have (tune it well) rather than re-implement
-the agent. If the project continued, this would be my first next step.
+**What it is.** Learn a model of environment dynamics — most often a
+recurrent latent state-space model trained on observation reconstruction
+(PlaNet, Dreamer, World Model), or a deterministic encoder-dynamics pair
+with a value head (TD-MPC). Either plan inside the learned model
+(CEM/iLQR/MPPI) or train a policy on imagined trajectories. Drastically
+more sample efficient than model-free methods on high-dimensional
+observations.
 
-### Constrained / safety-RL (Lagrangian PPO, CPO, RCPO)
+**Why it was a credible alternative.** The honest finding of my HPO
+study is that the V2 DQN is already close to whatever ceiling the
+hyperparameter space offers. To push past that ceiling I would need to
+change the *algorithm*, not the *hyperparameters*. Model-based RL is the
+post-V2 class of methods that does that — instead of tuning DQN better,
+you learn a model of the environment and either plan with it (TD-MPC) or
+train a policy in imagination (Dreamer, PlaNet). On vector observations,
+TD-MPC in particular has been shown competitive with model-free methods
+at a fraction of the sample count.
 
-**What it is.** Formulate driving as a constrained MDP — maximize expected
-return subject to a hard cap on expected cost (e.g., crash probability).
-Solved via Lagrangian relaxation (dual variable on the constraint) or trust
-region methods (CPO).
+**Why HPO was the better choice for V3.** Three reasons, in priority
+order.
 
-**Why I skipped it.** This is the most "day-to-day relevant" choice on this
-list for a driving context, but it requires (a) a working PPO baseline,
-which my V2 results show is unstable on `highway-v0`, and (b) careful tuning
-of the Lagrange multiplier that itself eats hyperparameter-tuning budget.
-The implementation effort is on the order of weeks for a result I can be
-confident in, and I had two days.
+1. **Observation geometry.** PlaNet, Dreamer, and the original World
+   Model were designed for pixel observations. The hard part they solve
+   — compressing a high-dimensional image stream into a usable latent
+   state — does not exist in `highway-v0`, where the environment already
+   provides a 25-dim hand-engineered observation. The data-efficiency
+   gains shrink dramatically on low-dim states while the implementation
+   lift (encoder, decoder, dynamics model, reward model, imagination
+   policy or MPC planner) stays large. TD-MPC is the one method in the
+   family that does not require pixel reconstruction, but it is still
+   substantially more implementation than tuning the agent I already
+   have.
 
-### Model-based RL (Dreamer, MuZero, World Models)
+2. **Result quality versus effort, given the time budget.** V3 was a
+   two-day deliverable on top of an already-working V2 baseline.
+   Replacing the agent with a model-based method I have not implemented
+   before — encoder, dynamics, planner, training loop — risks producing
+   a half-finished implementation that does not actually beat the V2
+   baseline I am trying to improve on, and would leave no time to
+   honestly characterise whatever result it did produce. HPO is a
+   smaller and faster intervention with a result I can defend
+   end-to-end: search space, trials, winner, multi-seed re-run that
+   says the winner is within baseline noise.
 
-**What it is.** Learn a model of environment dynamics (often a recurrent
-state-space model) and plan or train a policy inside the learned model.
-Drastically more sample efficient than model-free methods.
-
-**Why I skipped it.** Implementing a world model on top of `highway-v0`'s
-25-dim observation is overkill — these methods are designed for
-high-dimensional pixel observations where modeling the dynamics is the hard
-part. On a low-dim vector state, the data-efficiency gain is much smaller
-than the implementation lift. Wrong tool for the observation geometry.
-
-### Behavioral cloning / imitation learning / DAgger
-
-**What it is.** Train the policy to mimic expert demonstrations (BC) or
-iteratively query an expert for corrections on states the learned policy
-visits (DAgger).
-
-**Why I skipped it.** No dataset. The `highway-v0` simulator does not ship
-with human demonstrations, and collecting them via the keyboard renderer
-would have produced a tiny, noisy corpus that would not actually train a
-robust policy. Real dashcam data would be the right input, but obtaining,
-labeling, and aligning that data is a project of its own.
-
-### Hierarchical RL / options framework
-
-**What it is.** Decompose the policy into a high-level policy that selects
-*options* (temporally extended actions, e.g., "overtake the vehicle in front")
-and low-level policies that execute them.
-
-**Why I skipped it.** `highway-v0` already exposes meta-actions —
-"lane left", "faster", etc. — that are themselves temporally extended over
-many underlying simulator steps. Adding a second hierarchy on top is solving
-a problem that the environment has already solved for me.
-
-### Offline RL (CQL, BCQ, IQL)
-
-**What it is.** Learn a policy from a fixed dataset of logged transitions
-without further interaction with the environment. Necessary when online
-exploration is expensive or dangerous (real autonomous driving, healthcare,
-robotics).
-
-**Why I skipped it.** Same blocker as imitation learning — no dataset.
-Generating one from my V2 agents and then running offline RL on it would be
-a circular exercise that doesn't demonstrate anything about offline RL's
-real value.
+3. **The result HPO produced is itself informative.** Knowing that V2's
+   defaults are already near-optimal on `highway-v0` is a useful prior
+   to bring into any future model-based attempt. Without that prior, a
+   V4 model-based result of "matches V2 default" would be ambiguous —
+   maybe the model-based method is bad, maybe DQN is just hard to beat
+   on this task. With the V3 HPO result in hand, that ambiguity
+   resolves: DQN really is well-tuned, and any model-based gain is
+   measured against a strong baseline, not a weak one.
 
 ---
 
 ## Open questions / things I would do with more time
 
-- Confirm the +1.97 Optuna gain holds when re-trained from scratch on a
-  fresh seed and on traffic-density-2.0 (a harder configuration).
-- A second, narrower Optuna pass anchored at trial 9's neighborhood (small
-  ranges around lr=5.65e-4 and gamma=0.998).
-- Re-introduce PER hyperparameters (α, β annealing schedule) into the
-  search space — would require a small modification to `DQNAgent.__init__`
-  to pass them through to the buffer.
-- Distributional DQN (QR-DQN) on top of the tuned config, to see whether
-  modeling return variance unlocks further gains on collision-heavy
-  scenarios.
+- **Re-run Optuna with a multi-seed objective** (median over k=3 seeds
+  per trial). The obvious correction to the seed-luck issue. Triples the
+  study wall time but produces a winner I could trust without a separate
+  robustness re-run.
+- **Add Hyperband pruning to the Optuna study.** Once per-trial budget
+  grows (multi-seed trials become more expensive), early-pruning bad
+  configurations becomes worth its cost. Small Optuna API change.
+- **A second, narrower Optuna pass** anchored at trial 9's neighborhood
+  (small ranges around `lr=5.65e-4` and `gamma=0.998`).
+- **Re-introduce PER hyperparameters** (α, β annealing schedule) into
+  the search space. Requires a small change to `DQNAgent.__init__` to
+  pass them through to the buffer.
+- **TD-MPC on the same agent.** Of the four model-based methods we
+  covered, TD-MPC has the smallest infrastructure penalty on vector
+  observations. The cleanest comparison if I wanted to test whether a
+  model-based approach can beat a tuned model-free DQN on this task.
