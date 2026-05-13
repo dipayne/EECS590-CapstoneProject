@@ -1,7 +1,7 @@
 # V3 Final Report and README
 
 **Course:** EECS 590, Advanced Topics in EE and CS, Sp26
-**Author:** *(your name here)*
+**Author:** Davis Payne
 **Date:** 2026-05-13
 **Repository:** https://github.com/dipayne/EECS590-CapstoneProject
 
